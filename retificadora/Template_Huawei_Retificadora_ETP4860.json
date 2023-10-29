@@ -1,0 +1,2153 @@
+{
+    "zabbix_export": {
+        "version": "6.4",
+        "template_groups": [
+            {
+                "uuid": "286c23f68930462585158a77dd3d1192",
+                "name": "Sintercom/Templates"
+            },
+            {
+                "uuid": "36bff6c29af64692839d077febfc7079",
+                "name": "Templates/Network devices"
+            }
+        ],
+        "templates": [
+            {
+                "uuid": "e8bcfa13471745a092767fe86c20c78f",
+                "template": "Huawei Retificadora ETP4860 by SNMP - Sintercom",
+                "name": "Huawei Retificadora ETP4860 by SNMP - Sintercom",
+                "groups": [
+                    {
+                        "name": "Sintercom/Templates"
+                    },
+                    {
+                        "name": "Templates/Network devices"
+                    }
+                ],
+                "items": [
+                    {
+                        "uuid": "e95f7aa5f3b1455dbd174c6bc2780b56",
+                        "name": "ICMP ping",
+                        "type": "SIMPLE",
+                        "key": "icmpping",
+                        "history": "1w",
+                        "valuemap": {
+                            "name": "Service state"
+                        },
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "health"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "network"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "50c3af2b594c4bf6adab186b03273df3",
+                                "expression": "max(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmpping,#3)=0",
+                                "name": "Retificadora - Indispon\u00edvel via ICMP ping",
+                                "priority": "HIGH",
+                                "description": "Last three attempts returned timeout.  Please check device connectivity.",
+                                "manual_close": "YES",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "fe9a7928fd644ee59ff7583561c77a5c",
+                        "name": "ICMP loss",
+                        "type": "SIMPLE",
+                        "key": "icmppingloss",
+                        "history": "1w",
+                        "value_type": "FLOAT",
+                        "units": "%",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "health"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "network"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "4d634835bfc14f4ebe0d5ce301618cf7",
+                                "expression": "min(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmppingloss,5m)>{$ICMP_LOSS_WARN} and min(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmppingloss,5m)<100",
+                                "name": "Retificadora - Perda de Pacotes em {ITEM.LASTVALUE}",
+                                "opdata": "Loss: {ITEM.LASTVALUE1}",
+                                "priority": "AVERAGE",
+                                "dependencies": [
+                                    {
+                                        "name": "Retificadora - Indispon\u00edvel via ICMP ping",
+                                        "expression": "max(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmpping,#3)=0"
+                                    }
+                                ],
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    },
+                                    {
+                                        "tag": "scope",
+                                        "value": "performance"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "11e171c970c5450c844886612f538507",
+                        "name": "ICMP response time",
+                        "type": "SIMPLE",
+                        "key": "icmppingsec",
+                        "history": "1w",
+                        "value_type": "FLOAT",
+                        "units": "s",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "health"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "network"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "a7c768fe2c1b41a0be1db10b83b487c6",
+                                "expression": "avg(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmppingsec,5m)>{$ICMP_RESPONSE_TIME_WARN}",
+                                "name": "Retificadora - Tempo de Resposta em {ITEM.LASTVALUE}",
+                                "opdata": "Value: {ITEM.LASTVALUE1}",
+                                "priority": "AVERAGE",
+                                "dependencies": [
+                                    {
+                                        "name": "Retificadora - Indispon\u00edvel via ICMP ping",
+                                        "expression": "max(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmpping,#3)=0"
+                                    },
+                                    {
+                                        "name": "Retificadora - Perda de Pacotes em {ITEM.LASTVALUE}",
+                                        "expression": "min(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmppingloss,5m)>{$ICMP_LOSS_WARN} and min(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmppingloss,5m)<100"
+                                    }
+                                ],
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    },
+                                    {
+                                        "tag": "scope",
+                                        "value": "performance"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "4c94844c77c34a2691e570bca2ab483f",
+                        "name": "Capacidade Restante - Battery Group",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.4.2.10.0",
+                        "key": "rectifier.battery.group[capacity.0]",
+                        "history": "7d",
+                        "units": "%",
+                        "description": "Total Remaining Capacity Percent. Value range: 0 to 100, units: %, and the value is an integer.(1). If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid.",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "battery"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "dc787a75f37044258c57f42cce5d0d38",
+                                "expression": "last(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.battery.group[capacity.0])<=50",
+                                "name": "Retificadora - Capacidade restante da Bateria em {ITEM.LASTVALUE}",
+                                "priority": "HIGH",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "2d0bc5764efc40349884e1d1f95d051b",
+                        "name": "Charge Status - Battery Group",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.4.2.3.0",
+                        "key": "rectifier.battery.group[chargeStatus.0]",
+                        "history": "7d",
+                        "description": "\"Battery charging state, indicates the charging and discharging information about the battery group.\n \n1, it indicates a battery group in the float charging state.\n2, it indicates a battery group in the boost charging state.\n3, it indicates a battery group in the discharging state.\n4, it indicates a battery group in the hibernating state.\n7, it indicates a battery group in the Offline state.",
+                        "valuemap": {
+                            "name": "Battery State"
+                        },
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "battery"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "dd567c54fb6e4834bb9739b319854c7d",
+                                "expression": "last(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.battery.group[chargeStatus.0])=3",
+                                "recovery_mode": "RECOVERY_EXPRESSION",
+                                "recovery_expression": "last(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.battery.group[chargeStatus.0])=2\n\nor\n\nlast(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.battery.group[chargeStatus.0])=1",
+                                "name": "Retificadora - Sem energia el\u00e9trica (Modo Bateria)",
+                                "priority": "AVERAGE",
+                                "description": "1, it indicates a battery group in the float charging state.\n2, it indicates a battery group in the boost charging state.\n3, it indicates a battery group in the discharging state.\n4, it indicates a battery group in the hibernating state.\n7, it indicates a battery group in the Offline state.",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "faae64be854a447daca5fd2bdd25237e",
+                        "name": "Tempo de Descarregamento - Battery Group",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.4.2.2.0",
+                        "key": "rectifier.battery.group[dischargeTime.0]",
+                        "history": "7d",
+                        "units": "m",
+                        "description": "Battery group backup time. It indicates the real-time statistics of the battery group. Value range: 0 to 15360, Units: minutes (min), and the value is an integer (1). If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid.",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "battery"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "099a1fcf8dbf45d7abc9d5ec582e844c",
+                                "expression": "last(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.battery.group[dischargeTime.0])<60",
+                                "name": "Retificadora - Tempo restante da Bateria em {ITEM.LASTVALUE}",
+                                "priority": "AVERAGE",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "747ffdc72e4d448b9d506744bdf7e9fa",
+                        "name": "Rated Voltage - Modules Group",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.1.5.0",
+                        "key": "rectifier.modules.group.energy[RatedVoltage.0]",
+                        "history": "7d",
+                        "value_type": "FLOAT",
+                        "units": "V",
+                        "description": "Rated voltage of the rectifier module group. It is an inherent attribute. Value range: 42 to 58.3, Units: V, and the value is accurate to one decimal place (.1). If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid.",
+                        "preprocessing": [
+                            {
+                                "type": "MULTIPLIER",
+                                "parameters": [
+                                    "0.1"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "energy"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "2ba4fdc9fe424dc7989821727ca5507a",
+                        "name": "Total AC Input Power - Modules Group",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.1.11.0",
+                        "key": "rectifier.modules.group.energy[TotalACPower.0]",
+                        "history": "7d",
+                        "units": "W",
+                        "description": "Total power of the direct current output. Value range: 0 to 100000000, units: W, and the value is an integer. If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid.",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "energy"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "2dff40d377634c309373772d59b1bfce",
+                        "name": "Total DC Power - Modules Group",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.1.9.0",
+                        "key": "rectifier.modules.group.energy[TotalDCPower.0]",
+                        "history": "7d",
+                        "units": "W",
+                        "description": "Total power of the direct current output. Value range: 0 to 100000000, units: W, and the value is an integer. If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid.",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "energy"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "699b4dd6b3294169a4a7b0ddce95ddc6",
+                        "name": "Status - Modules Group",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.1.8.0",
+                        "key": "rectifier.modules.group[AllOnOff.0]",
+                        "history": "7d",
+                        "description": "\"Power-on or power-off of the rectifier module group (all the rectifier modules) on the site. It is an enumeration value: If the NMS notifies the SNMP agent that this node is set to 1, it indicates power-on of all rectifier modules; If the NMS notifies the SNMP agent that this node is set to 2, it indicates power-off of all the rectifier modules; If the NMS notifies the SNMP agent that this node is set to 255, it indicates nullOper of all the rectifier modules. NOTE: Only the system in manual mode, this parameter can be configured successfully.\"",
+                        "valuemap": {
+                            "name": "IF-MIB::ifOperStatus"
+                        },
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "modules"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "bb35cacd903b451aae76d448e547e129",
+                        "name": "Quantity Modules in Group",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.1.4.0",
+                        "key": "rectifier.modules.group[TotalQuantity.0]",
+                        "delay": "15m",
+                        "history": "7d",
+                        "value_type": "FLOAT",
+                        "description": "Total quantity of the rectifier modules. Value range: 0 to 256. Units:pcs.",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "modules"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "b4173ba98c6c47ebbbfbdb3cc8abbe81",
+                        "name": "Rectifier Status - 28672",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.2.2.1.99.28672",
+                        "key": "rectifier.status[28672]",
+                        "history": "7d",
+                        "description": "State of the rectifier module. It is an enumeration type:\n1, the rectifier module is in the normal state;\n2, a fault occurs on the rectifier module;\n3, automatic protection of the rectifier module;\n4, communication of the rectifier module fails;\n5, the rectifier module is shut down;\n6, the rectifier module is invalid;\n7, this rectifier is not configured;\n8, this rectifier is ac off;\n9, this rectifier is rectLost;\n254, rectifier alarm resume;\n255, rectifier operation status unknown.",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "health"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "9e770a15b0af4ce5bc55d1901a799bc9",
+                                "expression": "last(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.status[28672])>=2",
+                                "name": "Retificadora - M\u00f3dulo 28672 Indispon\u00edvel ou Inst\u00e1vel",
+                                "priority": "AVERAGE",
+                                "description": "State of the rectifier module. It is an enumeration type:\n1, the rectifier module is in the normal state;\n2, a fault occurs on the rectifier module;\n3, automatic protection of the rectifier module;\n4, communication of the rectifier module fails;\n5, the rectifier module is shut down;\n6, the rectifier module is invalid;\n7, this rectifier is not configured;\n8, this rectifier is ac off;\n9, this rectifier is rectLost;\n254, rectifier alarm resume;\n255, rectifier operation status unknown.",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3e92cfcb17fd45ed86a89cd590b99006",
+                        "name": "Rectifier Status - 28673",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.2.2.1.99.28673",
+                        "key": "rectifier.status[28673]",
+                        "history": "7d",
+                        "description": "State of the rectifier module. It is an enumeration type:\n1, the rectifier module is in the normal state;\n2, a fault occurs on the rectifier module;\n3, automatic protection of the rectifier module;\n4, communication of the rectifier module fails;\n5, the rectifier module is shut down;\n6, the rectifier module is invalid;\n7, this rectifier is not configured;\n8, this rectifier is ac off;\n9, this rectifier is rectLost;\n254, rectifier alarm resume;\n255, rectifier operation status unknown.",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "health"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "75f32d28c56e4bcaa8b0337a6f65e088",
+                                "expression": "last(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.status[28673])>=2",
+                                "name": "Retificadora - M\u00f3dulo 28673 Indispon\u00edvel ou Inst\u00e1vel",
+                                "priority": "AVERAGE",
+                                "description": "State of the rectifier module. It is an enumeration type:\n1, the rectifier module is in the normal state;\n2, a fault occurs on the rectifier module;\n3, automatic protection of the rectifier module;\n4, communication of the rectifier module fails;\n5, the rectifier module is shut down;\n6, the rectifier module is invalid;\n7, this rectifier is not configured;\n8, this rectifier is ac off;\n9, this rectifier is rectLost;\n254, rectifier alarm resume;\n255, rectifier operation status unknown.",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "fca54170c6e7440eb39ed0edf7339975",
+                        "name": "Load Usage",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.1.10.0",
+                        "key": "rectifier.system[LoadUsage.0]",
+                        "history": "7d",
+                        "units": "%",
+                        "description": "Load Usage. Value range: 0 to 150, units: %, and the value is an integer. If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid.",
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "540cf52d80eb4a3cb1c8f25a174249ce",
+                                "expression": "min(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.system[LoadUsage.0],5m)>1",
+                                "name": "Retificadora - Load em {ITEM.LASTVALUE}",
+                                "priority": "WARNING",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "performance"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "6bc97ffd04074a7dbefe31327ef20b78",
+                        "name": "Rectifier Temperature - 28672",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.2.2.1.8.28672",
+                        "key": "rectifier.temperature[28672]",
+                        "history": "7d",
+                        "value_type": "FLOAT",
+                        "units": "C\u00ba",
+                        "description": "Rectifier Temperature. Value range: -300 to 300, units: degC, and the value is accurate to one decimal space (.1). If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid.",
+                        "preprocessing": [
+                            {
+                                "type": "MULTIPLIER",
+                                "parameters": [
+                                    "0.1"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "temperature"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "14510400458e46ef94baec9771062625",
+                                "expression": "last(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.temperature[28672])>=50",
+                                "name": "Retificadora - M\u00f3dulo 28672 Temperatura em {ITEM.LASTVALUE}",
+                                "priority": "AVERAGE",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "performance"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "81341abe2ed440f3bef5463c212dbedf",
+                        "name": "Rectifier Temperature - 28673",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.4.1.2011.6.164.1.3.2.2.1.8.28673",
+                        "key": "rectifier.temperature[28673]",
+                        "history": "7d",
+                        "value_type": "FLOAT",
+                        "units": "C\u00ba",
+                        "description": "Rectifier Temperature. Value range: -300 to 300, units: degC, and the value is accurate to one decimal space (.1). If the value is 2147483647(0x7FFFFFFF), it indicates that the value is invalid.",
+                        "preprocessing": [
+                            {
+                                "type": "MULTIPLIER",
+                                "parameters": [
+                                    "0.1"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "retificadora"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "temperature"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "3a0335d6778348909dec62ea03fee6c7",
+                                "expression": "last(/Huawei Retificadora ETP4860 by SNMP - Sintercom/rectifier.temperature[28673])>=50",
+                                "name": "Retificadora - M\u00f3dulo 28673 Temperatura em {ITEM.LASTVALUE}",
+                                "priority": "AVERAGE",
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "performance"
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "62589a3da7bc4f4fb7178eff793ea76a",
+                        "name": "System contact details",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.2.1.1.4.0",
+                        "key": "system.contact[sysContact.0]",
+                        "delay": "15m",
+                        "history": "2w",
+                        "trends": "0",
+                        "value_type": "CHAR",
+                        "description": "MIB: SNMPv2-MIB\nThe textual identification of the contact person for this managed node, together with information on how to contact this person.  If no contact information is known, the value is the zero-length string.",
+                        "inventory_link": "CONTACT",
+                        "preprocessing": [
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "12h"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "system"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "e2050705aeb4473bb4ddb3ea7fff0966",
+                        "name": "System description",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.2.1.1.1.0",
+                        "key": "system.descr[sysDescr.0]",
+                        "delay": "15m",
+                        "history": "2w",
+                        "trends": "0",
+                        "value_type": "CHAR",
+                        "description": "MIB: SNMPv2-MIB\nA textual description of the entity. This value should\ninclude the full name and version identification of the system's hardware type, software operating-system, and\nnetworking software.",
+                        "preprocessing": [
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "12h"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "system"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "82a9428d05d14be2859eacfcfedc8940",
+                        "name": "System location",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.2.1.1.6.0",
+                        "key": "system.location[sysLocation.0]",
+                        "delay": "15m",
+                        "history": "2w",
+                        "trends": "0",
+                        "value_type": "CHAR",
+                        "description": "MIB: SNMPv2-MIB\nThe physical location of this node (e.g., `telephone closet, 3rd floor').  If the location is unknown, the value is the zero-length string.",
+                        "inventory_link": "LOCATION",
+                        "preprocessing": [
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "12h"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "system"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "14ec128af8624fcbbe65e7d45ba67f47",
+                        "name": "System name",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.2.1.1.5.0",
+                        "key": "system.name",
+                        "delay": "15m",
+                        "history": "2w",
+                        "trends": "0",
+                        "value_type": "CHAR",
+                        "description": "MIB: SNMPv2-MIB\nAn administratively-assigned name for this managed node.By convention, this is the node's fully-qualified domain name.  If the name is unknown, the value is the zero-length string.",
+                        "inventory_link": "NAME",
+                        "preprocessing": [
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "12h"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "system"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "5c0e178c68d24168907792356213feee",
+                        "name": "Uptime (network)",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.2.1.1.3.0",
+                        "key": "system.net.uptime[sysUpTime.0]",
+                        "delay": "30s",
+                        "history": "2w",
+                        "trends": "0d",
+                        "units": "uptime",
+                        "description": "MIB: SNMPv2-MIB\nThe time (in hundredths of a second) since the network management portion of the system was last re-initialized.",
+                        "preprocessing": [
+                            {
+                                "type": "MULTIPLIER",
+                                "parameters": [
+                                    "0.01"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "system"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "272976fc655548c58c079e3cf1679043",
+                        "name": "System object ID",
+                        "type": "SNMP_AGENT",
+                        "snmp_oid": "1.3.6.1.2.1.1.2.0",
+                        "key": "system.objectid[sysObjectID.0]",
+                        "delay": "15m",
+                        "history": "2w",
+                        "trends": "0",
+                        "value_type": "CHAR",
+                        "description": "MIB: SNMPv2-MIB\nThe vendor's authoritative identification of the network management subsystem contained in the entity.  This value is allocated within the SMI enterprises subtree (1.3.6.1.4.1) and provides an easy and unambiguous means for determining`what kind of box' is being managed.  For example, if vendor`Flintstones, Inc.' was assigned the subtree1.3.6.1.4.1.4242, it could assign the identifier 1.3.6.1.4.1.4242.1.1 to its `Fred Router'.",
+                        "preprocessing": [
+                            {
+                                "type": "DISCARD_UNCHANGED_HEARTBEAT",
+                                "parameters": [
+                                    "12h"
+                                ]
+                            }
+                        ],
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "system"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "60c9fc4d22d84e3c8ee5eb686bda1754",
+                        "name": "SNMP agent availability",
+                        "type": "INTERNAL",
+                        "key": "zabbix[host,snmp,available]",
+                        "history": "7d",
+                        "description": "Availability of SNMP checks on the host. The value of this item corresponds to availability icons in the host list.\nPossible value:\n0 - not available\n1 - available\n2 - unknown",
+                        "valuemap": {
+                            "name": "zabbix.host.available"
+                        },
+                        "tags": [
+                            {
+                                "tag": "component",
+                                "value": "health"
+                            },
+                            {
+                                "tag": "component",
+                                "value": "network"
+                            }
+                        ],
+                        "triggers": [
+                            {
+                                "uuid": "4eecb3196f3c46d582d47f8c3ee5fc61",
+                                "expression": "max(/Huawei Retificadora ETP4860 by SNMP - Sintercom/zabbix[host,snmp,available],{$SNMP.TIMEOUT})=0",
+                                "name": "Retificadora - SNMP Indispon\u00edvel (Falha no monitoramento)",
+                                "opdata": "Current state: {ITEM.LASTVALUE1}",
+                                "priority": "HIGH",
+                                "description": "SNMP is not available for polling. Please check device connectivity and SNMP settings.",
+                                "dependencies": [
+                                    {
+                                        "name": "Retificadora - Indispon\u00edvel via ICMP ping",
+                                        "expression": "max(/Huawei Retificadora ETP4860 by SNMP - Sintercom/icmpping,#3)=0"
+                                    }
+                                ],
+                                "tags": [
+                                    {
+                                        "tag": "scope",
+                                        "value": "availability"
+                                    }
+                                ]
+                            }
+                        ]
+                    }
+                ],
+                "tags": [
+                    {
+                        "tag": "project",
+                        "value": "sintercom"
+                    },
+                    {
+                        "tag": "target",
+                        "value": "huawei"
+                    },
+                    {
+                        "tag": "telegram",
+                        "value": "true"
+                    }
+                ],
+                "macros": [
+                    {
+                        "macro": "{$CPU.UTIL.CRIT}",
+                        "value": "90"
+                    },
+                    {
+                        "macro": "{$FAN_CRIT_STATUS}",
+                        "value": "2"
+                    },
+                    {
+                        "macro": "{$ICMP_LOSS_WARN}",
+                        "value": "20"
+                    },
+                    {
+                        "macro": "{$ICMP_RESPONSE_TIME_WARN}",
+                        "value": "0.15"
+                    },
+                    {
+                        "macro": "{$IF.ERRORS.WARN}",
+                        "value": "2"
+                    },
+                    {
+                        "macro": "{$IF.UTIL.MAX}",
+                        "value": "90"
+                    },
+                    {
+                        "macro": "{$IFCONTROL}",
+                        "value": "1"
+                    },
+                    {
+                        "macro": "{$MEMORY.UTIL.MAX}",
+                        "value": "90"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFADMINSTATUS.MATCHES}",
+                        "value": "^.*",
+                        "description": "Ignore notPresent(6)"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFADMINSTATUS.NOT_MATCHES}",
+                        "value": "^2$",
+                        "description": "Ignore down(2) administrative status"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFALIAS.MATCHES}",
+                        "value": ".*"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFALIAS.NOT_MATCHES}",
+                        "value": "CHANGE_IF_NEEDED"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFDESCR.MATCHES}",
+                        "value": ".*"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFDESCR.NOT_MATCHES}",
+                        "value": "CHANGE_IF_NEEDED"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFNAME.MATCHES}",
+                        "value": "^.*$"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFNAME.NOT_MATCHES}",
+                        "value": "(^Software Loopback Interface|^NULL[0-9.]*$|^[Ll]o[0-9.]*$|^[Ss]ystem$|^Nu[0-9.]*$|^veth[0-9a-z]+$|docker[0-9]+|br-[a-z0-9]{12})",
+                        "description": "Filter out loopbacks, nulls, docker veth links and docker0 bridge by default"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFOPERSTATUS.MATCHES}",
+                        "value": "^.*$"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFOPERSTATUS.NOT_MATCHES}",
+                        "value": "^6$",
+                        "description": "Ignore notPresent(6)"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFTYPE.MATCHES}",
+                        "value": ".*"
+                    },
+                    {
+                        "macro": "{$NET.IF.IFTYPE.NOT_MATCHES}",
+                        "value": "CHANGE_IF_NEEDED"
+                    },
+                    {
+                        "macro": "{$SNMP.TIMEOUT}",
+                        "value": "5m"
+                    },
+                    {
+                        "macro": "{$TEMP_CRIT}",
+                        "value": "60"
+                    },
+                    {
+                        "macro": "{$TEMP_CRIT_LOW}",
+                        "value": "5"
+                    },
+                    {
+                        "macro": "{$TEMP_WARN}",
+                        "value": "50"
+                    }
+                ],
+                "valuemaps": [
+                    {
+                        "uuid": "967bdbf8d4f640b281c6b1a345a9b6e9",
+                        "name": "Battery State",
+                        "mappings": [
+                            {
+                                "value": "1",
+                                "newvalue": "Carregado"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "Carregando"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "Descarregando"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "Hibernando"
+                            },
+                            {
+                                "value": "7",
+                                "newvalue": "Indispon\u00edvel (Offline)"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "677fe751a9b64ff2b50df7687b07831d",
+                        "name": "EtherLike-MIB::dot3StatsDuplexStatus",
+                        "mappings": [
+                            {
+                                "value": "1",
+                                "newvalue": "unknown"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "halfDuplex"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "fullDuplex"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "3e18aac8abe34d979e93ec474b45fb72",
+                        "name": "HUAWEI-ENTITY-EXTENT-MIB::hwEntityFanState",
+                        "mappings": [
+                            {
+                                "value": "1",
+                                "newvalue": "normal"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "abnormal"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "a4e37d52cd0146969dd2218d2e7193c8",
+                        "name": "IF-MIB::ifOperStatus",
+                        "mappings": [
+                            {
+                                "value": "1",
+                                "newvalue": "up"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "down"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "unknown"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "dormant"
+                            },
+                            {
+                                "value": "6",
+                                "newvalue": "notPresent"
+                            },
+                            {
+                                "value": "7",
+                                "newvalue": "lowerLayerDown"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "ec5cf7ab23894ad4a4b0264f5f367aff",
+                        "name": "IF-MIB::ifType",
+                        "mappings": [
+                            {
+                                "value": "1",
+                                "newvalue": "other"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "regular1822"
+                            },
+                            {
+                                "value": "3",
+                                "newvalue": "hdh1822"
+                            },
+                            {
+                                "value": "4",
+                                "newvalue": "ddnX25"
+                            },
+                            {
+                                "value": "5",
+                                "newvalue": "rfc877x25"
+                            },
+                            {
+                                "value": "6",
+                                "newvalue": "ethernetCsmacd"
+                            },
+                            {
+                                "value": "7",
+                                "newvalue": "iso88023Csmacd"
+                            },
+                            {
+                                "value": "8",
+                                "newvalue": "iso88024TokenBus"
+                            },
+                            {
+                                "value": "9",
+                                "newvalue": "iso88025TokenRing"
+                            },
+                            {
+                                "value": "10",
+                                "newvalue": "iso88026Man"
+                            },
+                            {
+                                "value": "11",
+                                "newvalue": "starLan"
+                            },
+                            {
+                                "value": "12",
+                                "newvalue": "proteon10Mbit"
+                            },
+                            {
+                                "value": "13",
+                                "newvalue": "proteon80Mbit"
+                            },
+                            {
+                                "value": "14",
+                                "newvalue": "hyperchannel"
+                            },
+                            {
+                                "value": "15",
+                                "newvalue": "fddi"
+                            },
+                            {
+                                "value": "16",
+                                "newvalue": "lapb"
+                            },
+                            {
+                                "value": "17",
+                                "newvalue": "sdlc"
+                            },
+                            {
+                                "value": "18",
+                                "newvalue": "ds1"
+                            },
+                            {
+                                "value": "19",
+                                "newvalue": "e1"
+                            },
+                            {
+                                "value": "20",
+                                "newvalue": "basicISDN"
+                            },
+                            {
+                                "value": "21",
+                                "newvalue": "primaryISDN"
+                            },
+                            {
+                                "value": "22",
+                                "newvalue": "propPointToPointSerial"
+                            },
+                            {
+                                "value": "23",
+                                "newvalue": "ppp"
+                            },
+                            {
+                                "value": "24",
+                                "newvalue": "softwareLoopback"
+                            },
+                            {
+                                "value": "25",
+                                "newvalue": "eon"
+                            },
+                            {
+                                "value": "26",
+                                "newvalue": "ethernet3Mbit"
+                            },
+                            {
+                                "value": "27",
+                                "newvalue": "nsip"
+                            },
+                            {
+                                "value": "28",
+                                "newvalue": "slip"
+                            },
+                            {
+                                "value": "29",
+                                "newvalue": "ultra"
+                            },
+                            {
+                                "value": "30",
+                                "newvalue": "ds3"
+                            },
+                            {
+                                "value": "31",
+                                "newvalue": "sip"
+                            },
+                            {
+                                "value": "32",
+                                "newvalue": "frameRelay"
+                            },
+                            {
+                                "value": "33",
+                                "newvalue": "rs232"
+                            },
+                            {
+                                "value": "34",
+                                "newvalue": "para"
+                            },
+                            {
+                                "value": "35",
+                                "newvalue": "arcnet"
+                            },
+                            {
+                                "value": "36",
+                                "newvalue": "arcnetPlus"
+                            },
+                            {
+                                "value": "37",
+                                "newvalue": "atm"
+                            },
+                            {
+                                "value": "38",
+                                "newvalue": "miox25"
+                            },
+                            {
+                                "value": "39",
+                                "newvalue": "sonet"
+                            },
+                            {
+                                "value": "40",
+                                "newvalue": "x25ple"
+                            },
+                            {
+                                "value": "41",
+                                "newvalue": "iso88022llc"
+                            },
+                            {
+                                "value": "42",
+                                "newvalue": "localTalk"
+                            },
+                            {
+                                "value": "43",
+                                "newvalue": "smdsDxi"
+                            },
+                            {
+                                "value": "44",
+                                "newvalue": "frameRelayService"
+                            },
+                            {
+                                "value": "45",
+                                "newvalue": "v35"
+                            },
+                            {
+                                "value": "46",
+                                "newvalue": "hssi"
+                            },
+                            {
+                                "value": "47",
+                                "newvalue": "hippi"
+                            },
+                            {
+                                "value": "48",
+                                "newvalue": "modem"
+                            },
+                            {
+                                "value": "49",
+                                "newvalue": "aal5"
+                            },
+                            {
+                                "value": "50",
+                                "newvalue": "sonetPath"
+                            },
+                            {
+                                "value": "51",
+                                "newvalue": "sonetVT"
+                            },
+                            {
+                                "value": "52",
+                                "newvalue": "smdsIcip"
+                            },
+                            {
+                                "value": "53",
+                                "newvalue": "propVirtual"
+                            },
+                            {
+                                "value": "54",
+                                "newvalue": "propMultiplexor"
+                            },
+                            {
+                                "value": "55",
+                                "newvalue": "ieee80212"
+                            },
+                            {
+                                "value": "56",
+                                "newvalue": "fibreChannel"
+                            },
+                            {
+                                "value": "57",
+                                "newvalue": "hippiInterface"
+                            },
+                            {
+                                "value": "58",
+                                "newvalue": "frameRelayInterconnect"
+                            },
+                            {
+                                "value": "59",
+                                "newvalue": "aflane8023"
+                            },
+                            {
+                                "value": "60",
+                                "newvalue": "aflane8025"
+                            },
+                            {
+                                "value": "61",
+                                "newvalue": "cctEmul"
+                            },
+                            {
+                                "value": "62",
+                                "newvalue": "fastEther"
+                            },
+                            {
+                                "value": "63",
+                                "newvalue": "isdn"
+                            },
+                            {
+                                "value": "64",
+                                "newvalue": "v11"
+                            },
+                            {
+                                "value": "65",
+                                "newvalue": "v36"
+                            },
+                            {
+                                "value": "66",
+                                "newvalue": "g703at64k"
+                            },
+                            {
+                                "value": "67",
+                                "newvalue": "g703at2mb"
+                            },
+                            {
+                                "value": "68",
+                                "newvalue": "qllc"
+                            },
+                            {
+                                "value": "69",
+                                "newvalue": "fastEtherFX"
+                            },
+                            {
+                                "value": "70",
+                                "newvalue": "channel"
+                            },
+                            {
+                                "value": "71",
+                                "newvalue": "ieee80211"
+                            },
+                            {
+                                "value": "72",
+                                "newvalue": "ibm370parChan"
+                            },
+                            {
+                                "value": "73",
+                                "newvalue": "escon"
+                            },
+                            {
+                                "value": "74",
+                                "newvalue": "dlsw"
+                            },
+                            {
+                                "value": "75",
+                                "newvalue": "isdns"
+                            },
+                            {
+                                "value": "76",
+                                "newvalue": "isdnu"
+                            },
+                            {
+                                "value": "77",
+                                "newvalue": "lapd"
+                            },
+                            {
+                                "value": "78",
+                                "newvalue": "ipSwitch"
+                            },
+                            {
+                                "value": "79",
+                                "newvalue": "rsrb"
+                            },
+                            {
+                                "value": "80",
+                                "newvalue": "atmLogical"
+                            },
+                            {
+                                "value": "81",
+                                "newvalue": "ds0"
+                            },
+                            {
+                                "value": "82",
+                                "newvalue": "ds0Bundle"
+                            },
+                            {
+                                "value": "83",
+                                "newvalue": "bsc"
+                            },
+                            {
+                                "value": "84",
+                                "newvalue": "async"
+                            },
+                            {
+                                "value": "85",
+                                "newvalue": "cnr"
+                            },
+                            {
+                                "value": "86",
+                                "newvalue": "iso88025Dtr"
+                            },
+                            {
+                                "value": "87",
+                                "newvalue": "eplrs"
+                            },
+                            {
+                                "value": "88",
+                                "newvalue": "arap"
+                            },
+                            {
+                                "value": "89",
+                                "newvalue": "propCnls"
+                            },
+                            {
+                                "value": "90",
+                                "newvalue": "hostPad"
+                            },
+                            {
+                                "value": "91",
+                                "newvalue": "termPad"
+                            },
+                            {
+                                "value": "92",
+                                "newvalue": "frameRelayMPI"
+                            },
+                            {
+                                "value": "93",
+                                "newvalue": "x213"
+                            },
+                            {
+                                "value": "94",
+                                "newvalue": "adsl"
+                            },
+                            {
+                                "value": "95",
+                                "newvalue": "radsl"
+                            },
+                            {
+                                "value": "96",
+                                "newvalue": "sdsl"
+                            },
+                            {
+                                "value": "97",
+                                "newvalue": "vdsl"
+                            },
+                            {
+                                "value": "98",
+                                "newvalue": "iso88025CRFPInt"
+                            },
+                            {
+                                "value": "99",
+                                "newvalue": "myrinet"
+                            },
+                            {
+                                "value": "100",
+                                "newvalue": "voiceEM"
+                            },
+                            {
+                                "value": "101",
+                                "newvalue": "voiceFXO"
+                            },
+                            {
+                                "value": "102",
+                                "newvalue": "voiceFXS"
+                            },
+                            {
+                                "value": "103",
+                                "newvalue": "voiceEncap"
+                            },
+                            {
+                                "value": "104",
+                                "newvalue": "voiceOverIp"
+                            },
+                            {
+                                "value": "105",
+                                "newvalue": "atmDxi"
+                            },
+                            {
+                                "value": "106",
+                                "newvalue": "atmFuni"
+                            },
+                            {
+                                "value": "107",
+                                "newvalue": "atmIma"
+                            },
+                            {
+                                "value": "108",
+                                "newvalue": "pppMultilinkBundle"
+                            },
+                            {
+                                "value": "109",
+                                "newvalue": "ipOverCdlc"
+                            },
+                            {
+                                "value": "110",
+                                "newvalue": "ipOverClaw"
+                            },
+                            {
+                                "value": "111",
+                                "newvalue": "stackToStack"
+                            },
+                            {
+                                "value": "112",
+                                "newvalue": "virtualIpAddress"
+                            },
+                            {
+                                "value": "113",
+                                "newvalue": "mpc"
+                            },
+                            {
+                                "value": "114",
+                                "newvalue": "ipOverAtm"
+                            },
+                            {
+                                "value": "115",
+                                "newvalue": "iso88025Fiber"
+                            },
+                            {
+                                "value": "116",
+                                "newvalue": "tdlc"
+                            },
+                            {
+                                "value": "117",
+                                "newvalue": "gigabitEthernet"
+                            },
+                            {
+                                "value": "118",
+                                "newvalue": "hdlc"
+                            },
+                            {
+                                "value": "119",
+                                "newvalue": "lapf"
+                            },
+                            {
+                                "value": "120",
+                                "newvalue": "v37"
+                            },
+                            {
+                                "value": "121",
+                                "newvalue": "x25mlp"
+                            },
+                            {
+                                "value": "122",
+                                "newvalue": "x25huntGroup"
+                            },
+                            {
+                                "value": "123",
+                                "newvalue": "trasnpHdlc"
+                            },
+                            {
+                                "value": "124",
+                                "newvalue": "interleave"
+                            },
+                            {
+                                "value": "125",
+                                "newvalue": "fast"
+                            },
+                            {
+                                "value": "126",
+                                "newvalue": "ip"
+                            },
+                            {
+                                "value": "127",
+                                "newvalue": "docsCableMaclayer"
+                            },
+                            {
+                                "value": "128",
+                                "newvalue": "docsCableDownstream"
+                            },
+                            {
+                                "value": "129",
+                                "newvalue": "docsCableUpstream"
+                            },
+                            {
+                                "value": "130",
+                                "newvalue": "a12MppSwitch"
+                            },
+                            {
+                                "value": "131",
+                                "newvalue": "tunnel"
+                            },
+                            {
+                                "value": "132",
+                                "newvalue": "coffee"
+                            },
+                            {
+                                "value": "133",
+                                "newvalue": "ces"
+                            },
+                            {
+                                "value": "134",
+                                "newvalue": "atmSubInterface"
+                            },
+                            {
+                                "value": "135",
+                                "newvalue": "l2vlan"
+                            },
+                            {
+                                "value": "136",
+                                "newvalue": "l3ipvlan"
+                            },
+                            {
+                                "value": "137",
+                                "newvalue": "l3ipxvlan"
+                            },
+                            {
+                                "value": "138",
+                                "newvalue": "digitalPowerline"
+                            },
+                            {
+                                "value": "139",
+                                "newvalue": "mediaMailOverIp"
+                            },
+                            {
+                                "value": "140",
+                                "newvalue": "dtm"
+                            },
+                            {
+                                "value": "141",
+                                "newvalue": "dcn"
+                            },
+                            {
+                                "value": "142",
+                                "newvalue": "ipForward"
+                            },
+                            {
+                                "value": "143",
+                                "newvalue": "msdsl"
+                            },
+                            {
+                                "value": "144",
+                                "newvalue": "ieee1394"
+                            },
+                            {
+                                "value": "145",
+                                "newvalue": "if-gsn"
+                            },
+                            {
+                                "value": "146",
+                                "newvalue": "dvbRccMacLayer"
+                            },
+                            {
+                                "value": "147",
+                                "newvalue": "dvbRccDownstream"
+                            },
+                            {
+                                "value": "148",
+                                "newvalue": "dvbRccUpstream"
+                            },
+                            {
+                                "value": "149",
+                                "newvalue": "atmVirtual"
+                            },
+                            {
+                                "value": "150",
+                                "newvalue": "mplsTunnel"
+                            },
+                            {
+                                "value": "151",
+                                "newvalue": "srp"
+                            },
+                            {
+                                "value": "152",
+                                "newvalue": "voiceOverAtm"
+                            },
+                            {
+                                "value": "153",
+                                "newvalue": "voiceOverFrameRelay"
+                            },
+                            {
+                                "value": "154",
+                                "newvalue": "idsl"
+                            },
+                            {
+                                "value": "155",
+                                "newvalue": "compositeLink"
+                            },
+                            {
+                                "value": "156",
+                                "newvalue": "ss7SigLink"
+                            },
+                            {
+                                "value": "157",
+                                "newvalue": "propWirelessP2P"
+                            },
+                            {
+                                "value": "158",
+                                "newvalue": "frForward"
+                            },
+                            {
+                                "value": "159",
+                                "newvalue": "rfc1483"
+                            },
+                            {
+                                "value": "160",
+                                "newvalue": "usb"
+                            },
+                            {
+                                "value": "161",
+                                "newvalue": "ieee8023adLag"
+                            },
+                            {
+                                "value": "162",
+                                "newvalue": "bgppolicyaccounting"
+                            },
+                            {
+                                "value": "163",
+                                "newvalue": "frf16MfrBundle"
+                            },
+                            {
+                                "value": "164",
+                                "newvalue": "h323Gatekeeper"
+                            },
+                            {
+                                "value": "165",
+                                "newvalue": "h323Proxy"
+                            },
+                            {
+                                "value": "166",
+                                "newvalue": "mpls"
+                            },
+                            {
+                                "value": "167",
+                                "newvalue": "mfSigLink"
+                            },
+                            {
+                                "value": "168",
+                                "newvalue": "hdsl2"
+                            },
+                            {
+                                "value": "169",
+                                "newvalue": "shdsl"
+                            },
+                            {
+                                "value": "170",
+                                "newvalue": "ds1FDL"
+                            },
+                            {
+                                "value": "171",
+                                "newvalue": "pos"
+                            },
+                            {
+                                "value": "172",
+                                "newvalue": "dvbAsiIn"
+                            },
+                            {
+                                "value": "173",
+                                "newvalue": "dvbAsiOut"
+                            },
+                            {
+                                "value": "174",
+                                "newvalue": "plc"
+                            },
+                            {
+                                "value": "175",
+                                "newvalue": "nfas"
+                            },
+                            {
+                                "value": "176",
+                                "newvalue": "tr008"
+                            },
+                            {
+                                "value": "177",
+                                "newvalue": "gr303RDT"
+                            },
+                            {
+                                "value": "178",
+                                "newvalue": "gr303IDT"
+                            },
+                            {
+                                "value": "179",
+                                "newvalue": "isup"
+                            },
+                            {
+                                "value": "180",
+                                "newvalue": "propDocsWirelessMaclayer"
+                            },
+                            {
+                                "value": "181",
+                                "newvalue": "propDocsWirelessDownstream"
+                            },
+                            {
+                                "value": "182",
+                                "newvalue": "propDocsWirelessUpstream"
+                            },
+                            {
+                                "value": "183",
+                                "newvalue": "hiperlan2"
+                            },
+                            {
+                                "value": "184",
+                                "newvalue": "propBWAp2Mp"
+                            },
+                            {
+                                "value": "185",
+                                "newvalue": "sonetOverheadChannel"
+                            },
+                            {
+                                "value": "186",
+                                "newvalue": "digitalWrapperOverheadChannel"
+                            },
+                            {
+                                "value": "187",
+                                "newvalue": "aal2"
+                            },
+                            {
+                                "value": "188",
+                                "newvalue": "radioMAC"
+                            },
+                            {
+                                "value": "189",
+                                "newvalue": "atmRadio"
+                            },
+                            {
+                                "value": "190",
+                                "newvalue": "imt"
+                            },
+                            {
+                                "value": "191",
+                                "newvalue": "mvl"
+                            },
+                            {
+                                "value": "192",
+                                "newvalue": "reachDSL"
+                            },
+                            {
+                                "value": "193",
+                                "newvalue": "frDlciEndPt"
+                            },
+                            {
+                                "value": "194",
+                                "newvalue": "atmVciEndPt"
+                            },
+                            {
+                                "value": "195",
+                                "newvalue": "opticalChannel"
+                            },
+                            {
+                                "value": "196",
+                                "newvalue": "opticalTransport"
+                            },
+                            {
+                                "value": "197",
+                                "newvalue": "propAtm"
+                            },
+                            {
+                                "value": "198",
+                                "newvalue": "voiceOverCable"
+                            },
+                            {
+                                "value": "199",
+                                "newvalue": "infiniband"
+                            },
+                            {
+                                "value": "200",
+                                "newvalue": "teLink"
+                            },
+                            {
+                                "value": "201",
+                                "newvalue": "q2931"
+                            },
+                            {
+                                "value": "202",
+                                "newvalue": "virtualTg"
+                            },
+                            {
+                                "value": "203",
+                                "newvalue": "sipTg"
+                            },
+                            {
+                                "value": "204",
+                                "newvalue": "sipSig"
+                            },
+                            {
+                                "value": "205",
+                                "newvalue": "docsCableUpstreamChannel"
+                            },
+                            {
+                                "value": "206",
+                                "newvalue": "econet"
+                            },
+                            {
+                                "value": "207",
+                                "newvalue": "pon155"
+                            },
+                            {
+                                "value": "208",
+                                "newvalue": "pon622"
+                            },
+                            {
+                                "value": "209",
+                                "newvalue": "bridge"
+                            },
+                            {
+                                "value": "210",
+                                "newvalue": "linegroup"
+                            },
+                            {
+                                "value": "211",
+                                "newvalue": "voiceEMFGD"
+                            },
+                            {
+                                "value": "212",
+                                "newvalue": "voiceFGDEANA"
+                            },
+                            {
+                                "value": "213",
+                                "newvalue": "voiceDID"
+                            },
+                            {
+                                "value": "214",
+                                "newvalue": "mpegTransport"
+                            },
+                            {
+                                "value": "215",
+                                "newvalue": "sixToFour"
+                            },
+                            {
+                                "value": "216",
+                                "newvalue": "gtp"
+                            },
+                            {
+                                "value": "217",
+                                "newvalue": "pdnEtherLoop1"
+                            },
+                            {
+                                "value": "218",
+                                "newvalue": "pdnEtherLoop2"
+                            },
+                            {
+                                "value": "219",
+                                "newvalue": "opticalChannelGroup"
+                            },
+                            {
+                                "value": "220",
+                                "newvalue": "homepna"
+                            },
+                            {
+                                "value": "221",
+                                "newvalue": "gfp"
+                            },
+                            {
+                                "value": "222",
+                                "newvalue": "ciscoISLvlan"
+                            },
+                            {
+                                "value": "223",
+                                "newvalue": "actelisMetaLOOP"
+                            },
+                            {
+                                "value": "224",
+                                "newvalue": "fcipLink"
+                            },
+                            {
+                                "value": "225",
+                                "newvalue": "rpr"
+                            },
+                            {
+                                "value": "226",
+                                "newvalue": "qam"
+                            },
+                            {
+                                "value": "227",
+                                "newvalue": "lmp"
+                            },
+                            {
+                                "value": "228",
+                                "newvalue": "cblVectaStar"
+                            },
+                            {
+                                "value": "229",
+                                "newvalue": "docsCableMCmtsDownstream"
+                            },
+                            {
+                                "value": "230",
+                                "newvalue": "adsl2"
+                            },
+                            {
+                                "value": "231",
+                                "newvalue": "macSecControlledIF"
+                            },
+                            {
+                                "value": "232",
+                                "newvalue": "macSecUncontrolledIF"
+                            },
+                            {
+                                "value": "233",
+                                "newvalue": "aviciOpticalEther"
+                            },
+                            {
+                                "value": "234",
+                                "newvalue": "atmbond"
+                            },
+                            {
+                                "value": "235",
+                                "newvalue": "voiceFGDOS"
+                            },
+                            {
+                                "value": "236",
+                                "newvalue": "mocaVersion1"
+                            },
+                            {
+                                "value": "237",
+                                "newvalue": "ieee80216WMAN"
+                            },
+                            {
+                                "value": "238",
+                                "newvalue": "adsl2plus"
+                            },
+                            {
+                                "value": "239",
+                                "newvalue": "dvbRcsMacLayer"
+                            },
+                            {
+                                "value": "240",
+                                "newvalue": "dvbTdm"
+                            },
+                            {
+                                "value": "241",
+                                "newvalue": "dvbRcsTdma"
+                            },
+                            {
+                                "value": "242",
+                                "newvalue": "x86Laps"
+                            },
+                            {
+                                "value": "243",
+                                "newvalue": "wwanPP"
+                            },
+                            {
+                                "value": "244",
+                                "newvalue": "wwanPP2"
+                            },
+                            {
+                                "value": "245",
+                                "newvalue": "voiceEBS"
+                            },
+                            {
+                                "value": "246",
+                                "newvalue": "ifPwType"
+                            },
+                            {
+                                "value": "247",
+                                "newvalue": "ilan"
+                            },
+                            {
+                                "value": "248",
+                                "newvalue": "pip"
+                            },
+                            {
+                                "value": "249",
+                                "newvalue": "aluELP"
+                            },
+                            {
+                                "value": "250",
+                                "newvalue": "gpon"
+                            },
+                            {
+                                "value": "251",
+                                "newvalue": "vdsl2"
+                            },
+                            {
+                                "value": "252",
+                                "newvalue": "capwapDot11Profile"
+                            },
+                            {
+                                "value": "253",
+                                "newvalue": "capwapDot11Bss"
+                            },
+                            {
+                                "value": "254",
+                                "newvalue": "capwapWtpVirtualRadio"
+                            },
+                            {
+                                "value": "255",
+                                "newvalue": "bits"
+                            },
+                            {
+                                "value": "256",
+                                "newvalue": "docsCableUpstreamRfPort"
+                            },
+                            {
+                                "value": "257",
+                                "newvalue": "cableDownstreamRfPort"
+                            },
+                            {
+                                "value": "258",
+                                "newvalue": "vmwareVirtualNic"
+                            },
+                            {
+                                "value": "259",
+                                "newvalue": "ieee802154"
+                            },
+                            {
+                                "value": "260",
+                                "newvalue": "otnOdu"
+                            },
+                            {
+                                "value": "261",
+                                "newvalue": "otnOtu"
+                            },
+                            {
+                                "value": "262",
+                                "newvalue": "ifVfiType"
+                            },
+                            {
+                                "value": "263",
+                                "newvalue": "g9981"
+                            },
+                            {
+                                "value": "264",
+                                "newvalue": "g9982"
+                            },
+                            {
+                                "value": "265",
+                                "newvalue": "g9983"
+                            },
+                            {
+                                "value": "266",
+                                "newvalue": "aluEpon"
+                            },
+                            {
+                                "value": "267",
+                                "newvalue": "aluEponOnu"
+                            },
+                            {
+                                "value": "268",
+                                "newvalue": "aluEponPhysicalUni"
+                            },
+                            {
+                                "value": "269",
+                                "newvalue": "aluEponLogicalLink"
+                            },
+                            {
+                                "value": "270",
+                                "newvalue": "aluGponOnu"
+                            },
+                            {
+                                "value": "271",
+                                "newvalue": "aluGponPhysicalUni"
+                            },
+                            {
+                                "value": "272",
+                                "newvalue": "vmwareNicTeam"
+                            },
+                            {
+                                "value": "277",
+                                "newvalue": "docsOfdmDownstream"
+                            },
+                            {
+                                "value": "278",
+                                "newvalue": "docsOfdmaUpstream"
+                            },
+                            {
+                                "value": "279",
+                                "newvalue": "gfast"
+                            },
+                            {
+                                "value": "280",
+                                "newvalue": "sdci"
+                            },
+                            {
+                                "value": "281",
+                                "newvalue": "xboxWireless"
+                            },
+                            {
+                                "value": "282",
+                                "newvalue": "fastdsl"
+                            },
+                            {
+                                "value": "283",
+                                "newvalue": "docsCableScte55d1FwdOob"
+                            },
+                            {
+                                "value": "284",
+                                "newvalue": "docsCableScte55d1RetOob"
+                            },
+                            {
+                                "value": "285",
+                                "newvalue": "docsCableScte55d2DsOob"
+                            },
+                            {
+                                "value": "286",
+                                "newvalue": "docsCableScte55d2UsOob"
+                            },
+                            {
+                                "value": "287",
+                                "newvalue": "docsCableNdf"
+                            },
+                            {
+                                "value": "288",
+                                "newvalue": "docsCableNdr"
+                            },
+                            {
+                                "value": "289",
+                                "newvalue": "ptm"
+                            },
+                            {
+                                "value": "290",
+                                "newvalue": "ghn"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "e4bd7ddb51d642b7a66e915d6fc829ba",
+                        "name": "Service state",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "Down"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "Up"
+                            }
+                        ]
+                    },
+                    {
+                        "uuid": "a1c645fd82ce4447aa0dafe70b254418",
+                        "name": "zabbix.host.available",
+                        "mappings": [
+                            {
+                                "value": "0",
+                                "newvalue": "not available"
+                            },
+                            {
+                                "value": "1",
+                                "newvalue": "available"
+                            },
+                            {
+                                "value": "2",
+                                "newvalue": "unknown"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+}
