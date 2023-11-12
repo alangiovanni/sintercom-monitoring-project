@@ -1,0 +1,2510 @@
+{
+  "__inputs": [
+    {
+      "name": "DS_ZABBIX",
+      "label": "Zabbix",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "alexanderzobnin-zabbix-datasource",
+      "pluginName": "Zabbix"
+    }
+  ],
+  "__elements": {},
+  "__requires": [
+    {
+      "type": "datasource",
+      "id": "alexanderzobnin-zabbix-datasource",
+      "name": "Zabbix",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "bargauge",
+      "name": "Bar gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "9.3.6"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "table",
+      "name": "Table",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "text",
+      "name": "Text",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": {
+          "type": "grafana",
+          "uid": "-- Grafana --"
+        },
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "target": {
+          "limit": 100,
+          "matchAny": false,
+          "tags": [],
+          "type": "dashboard"
+        },
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "fiscalYearStartMonth": 0,
+  "graphTooltip": 0,
+  "id": null,
+  "links": [],
+  "liveNow": false,
+  "panels": [
+    {
+      "collapsed": false,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 10,
+      "panels": [],
+      "repeat": "host",
+      "repeatDirection": "h",
+      "title": "$host",
+      "type": "row"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 12,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2 style=\"text-shadow: 2px 2px 3px black, 0 0 30px blue, 0 0 10px darkblue;\"><center>${client}</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": ""
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "Down"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            }
+          ],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 0,
+        "y": 3
+      },
+      "id": 5,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "$host"
+          },
+          "item": {
+            "filter": "ICMP ping"
+          },
+          "itemTag": {
+            "filter": "/.*/"
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": true,
+            "disableDataAlignment": false,
+            "minSeverity": 3,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2
+          }
+        }
+      ],
+      "title": "ICMP",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "0": {
+                  "color": "red",
+                  "index": 0,
+                  "text": "Down"
+                },
+                "1": {
+                  "color": "green",
+                  "index": 1,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "blue",
+                  "index": 2,
+                  "text": "Não há SNMP configurado"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 2,
+        "y": 3
+      },
+      "id": 50,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "$host"
+          },
+          "item": {
+            "filter": "SNMP agent availability"
+          },
+          "itemTag": {
+            "filter": "/.*/"
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": true,
+            "disableDataAlignment": false,
+            "minSeverity": 3,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2
+          }
+        }
+      ],
+      "title": "SNMP",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-RdYlGr"
+          },
+          "mappings": [],
+          "max": 1,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "percentunit"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 2,
+        "x": 4,
+        "y": 3
+      },
+      "id": 35,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "auto",
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "mean"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "$host"
+          },
+          "item": {
+            "filter": "ICMP ping"
+          },
+          "itemTag": {
+            "filter": "/.*/"
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "title": "SLO",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlPu"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 4,
+        "x": 6,
+        "y": 3
+      },
+      "id": 4,
+      "options": {
+        "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "$host"
+          },
+          "item": {
+            "filter": "ICMP response time"
+          },
+          "itemTag": {
+            "filter": "/.*/"
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "title": "Latência",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "bars",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 7,
+        "x": 10,
+        "y": 3
+      },
+      "id": 7,
+      "options": {
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "$host"
+          },
+          "item": {
+            "filter": "ICMP response time"
+          },
+          "itemTag": {
+            "filter": "/.*/"
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "title": "Latência",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "Não há uptime configurado"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Value"
+            },
+            "properties": [
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "blue",
+                  "mode": "fixed"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 3,
+        "x": 17,
+        "y": 3
+      },
+      "id": 33,
+      "options": {
+        "colorMode": "background",
+        "graphMode": "none",
+        "justifyMode": "center",
+        "orientation": "auto",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "textMode": "auto"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "$host"
+          },
+          "item": {
+            "filter": "Uptime (network)"
+          },
+          "itemTag": {
+            "filter": "/.*/"
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": true,
+            "disableDataAlignment": false,
+            "minSeverity": 3,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2
+          }
+        }
+      ],
+      "title": "Uptime",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "gridPos": {
+        "h": 4,
+        "w": 4,
+        "x": 20,
+        "y": 3
+      },
+      "id": 34,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<center><img src=\"/public/img/icon_clock.png\" alt=\"Battery icon\" width=\"120\" height=\"120\"></center>",
+        "mode": "html"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": ""
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-BlPu"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 4,
+        "x": 6,
+        "y": 5
+      },
+      "id": 6,
+      "options": {
+        "displayMode": "gradient",
+        "minVizHeight": 10,
+        "minVizWidth": 0,
+        "orientation": "horizontal",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showUnfilled": true
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "$host"
+          },
+          "item": {
+            "filter": "ICMP loss"
+          },
+          "itemTag": {
+            "filter": "/.*/"
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "title": "Perda de Pacotes",
+      "type": "bargauge"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 7
+      },
+      "id": 36,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2 style=\"text-shadow: 2px 2px 3px black, 0 0 30px blue, 0 0 10px darkblue;\"><center>LINKS</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": ""
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "UP"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "from": 2,
+                "result": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "DOWN"
+                },
+                "to": 6
+              },
+              "type": "range"
+            }
+          ],
+          "max": 6,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              },
+              {
+                "color": "green",
+                "value": 1
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Field"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "item_key"
+            },
+            "properties": [
+              {
+                "id": "custom.hidden",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "item"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Interface"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last *"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Status"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Interface"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 827
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "host"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 288
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 7,
+        "w": 24,
+        "x": 0,
+        "y": 9
+      },
+      "id": 37,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": false,
+            "displayName": "Status"
+          }
+        ]
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [
+            {
+              "$$hashKey": "object:192",
+              "def": {
+                "category": "Alias",
+                "defaultParams": [
+                  "/(.*)/",
+                  "$1"
+                ],
+                "name": "replaceAlias",
+                "params": [
+                  {
+                    "name": "regexp",
+                    "type": "string"
+                  },
+                  {
+                    "name": "newAlias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "/(.*)\\(.*: Operational status/",
+                "$1"
+              ],
+              "text": "replaceAlias(/(.*)\\(.*: Operational status/, $1)"
+            }
+          ],
+          "group": {
+            "filter": "/^Sintercom.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": "/.*: Operational status/"
+          },
+          "itemTag": {
+            "filter": "$cli_descriptions"
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": true,
+            "disableDataAlignment": false,
+            "minSeverity": 3,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2
+          }
+        }
+      ],
+      "title": "Status das Interfaces configuradas para o Cliente",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "includeTimeField": false,
+            "labelsToFields": true,
+            "mode": "seriesToRows",
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "lineInterpolation": "smooth",
+            "lineStyle": {
+              "dash": [
+                10,
+                10
+              ],
+              "fill": "dash"
+            },
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": null
+              }
+            ]
+          },
+          "unit": "bytes"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 16
+      },
+      "id": 39,
+      "options": {
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true,
+          "sortBy": "Last *",
+          "sortDesc": true
+        },
+        "tooltip": {
+          "mode": "single",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "9.3.6",
+      "repeatDirection": "h",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": "/^Sintercom.*/"
+          },
+          "host": {
+            "filter": "/.*/"
+          },
+          "item": {
+            "filter": "/.*: Bits .*/"
+          },
+          "itemTag": {
+            "filter": "$cli_descriptions"
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": true,
+            "disableDataAlignment": false,
+            "minSeverity": 3,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2
+          }
+        }
+      ],
+      "title": "Volumetria",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 41,
+      "options": {
+        "code": {
+          "language": "plaintext",
+          "showLineNumbers": false,
+          "showMiniMap": false
+        },
+        "content": "<h2 style=\"text-shadow: 2px 2px 3px black, 0 0 30px blue, 0 0 10px darkblue;\"><center>ONT/ONU</center></h2>",
+        "mode": "html"
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [],
+          "group": {
+            "filter": ""
+          },
+          "host": {
+            "filter": ""
+          },
+          "item": {
+            "filter": ""
+          },
+          "itemTag": {
+            "filter": ""
+          },
+          "options": {
+            "disableDataAlignment": false,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2,
+            "count": true,
+            "minSeverity": 3
+          }
+        }
+      ],
+      "type": "text"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "mappings": [
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "blue",
+                  "index": 0,
+                  "text": "Cliente não possui ONT no monitoramento"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "dBm"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Field"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "ONT"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last *"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "RX Power"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "lcd-gauge"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "red",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": -25
+                    },
+                    {
+                      "color": "green",
+                      "value": -23
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 0,
+        "y": 27
+      },
+      "id": 43,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [
+            {
+              "$$hashKey": "object:300",
+              "def": {
+                "category": "Alias",
+                "defaultParams": [
+                  "/(.*)/",
+                  "$1"
+                ],
+                "name": "replaceAlias",
+                "params": [
+                  {
+                    "name": "regexp",
+                    "type": "string"
+                  },
+                  {
+                    "name": "newAlias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "/.* ONT (.*): Rx Power/",
+                "$1"
+              ],
+              "text": "replaceAlias(/.* ONT (.*): Rx Power/, $1)"
+            }
+          ],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "/.*OLT.*/"
+          },
+          "item": {
+            "filter": "/ONT .*${client}.*: Rx Power/"
+          },
+          "itemTag": {
+            "filter": "Application: ONU"
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": true,
+            "disableDataAlignment": false,
+            "minSeverity": 3,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2
+          }
+        }
+      ],
+      "title": "Atenuação da Fibra",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "continuous-GrYlRd"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "UP"
+                },
+                "2": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "OFF"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "blue",
+                  "index": 2,
+                  "text": "Cliente não possui ONT no monitoramento"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 2,
+          "min": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Field"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "ONT"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last *"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Status"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-background"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ONT"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 424
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 8,
+        "y": 27
+      },
+      "id": 46,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true,
+        "sortBy": []
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [
+            {
+              "$$hashKey": "object:219",
+              "def": {
+                "category": "Alias",
+                "defaultParams": [
+                  "/(.*)/",
+                  "$1"
+                ],
+                "name": "replaceAlias",
+                "params": [
+                  {
+                    "name": "regexp",
+                    "type": "string"
+                  },
+                  {
+                    "name": "newAlias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "/.* ONT (.*): Status/",
+                "$1"
+              ],
+              "text": "replaceAlias(/.* ONT (.*): Status/, $1)"
+            }
+          ],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "/.*OLT.*/"
+          },
+          "item": {
+            "filter": "/ONT .*${client}.*: Status/"
+          },
+          "itemTag": {
+            "filter": "Application: ONU"
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": true,
+            "disableDataAlignment": false,
+            "minSeverity": 3,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2
+          }
+        }
+      ],
+      "title": "Status",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    },
+    {
+      "datasource": {
+        "type": "alexanderzobnin-zabbix-datasource",
+        "uid": "${DS_ZABBIX}"
+      },
+      "description": "",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "auto",
+            "displayMode": "auto",
+            "inspect": false
+          },
+          "decimals": 0,
+          "mappings": [
+            {
+              "options": {
+                "1": {
+                  "color": "green",
+                  "index": 0,
+                  "text": "UP"
+                },
+                "2": {
+                  "color": "red",
+                  "index": 1,
+                  "text": "OFF"
+                }
+              },
+              "type": "value"
+            },
+            {
+              "options": {
+                "match": "null",
+                "result": {
+                  "color": "blue",
+                  "index": 2,
+                  "text": "Cliente não possui ONT no monitoramento"
+                }
+              },
+              "type": "special"
+            }
+          ],
+          "max": 2,
+          "min": 1,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          },
+          "unit": "celsius"
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Field"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "ONT"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Last *"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "Celsius (ºC)"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "thresholds",
+                "value": {
+                  "mode": "absolute",
+                  "steps": [
+                    {
+                      "color": "green",
+                      "value": null
+                    },
+                    {
+                      "color": "#EAB839",
+                      "value": 15
+                    },
+                    {
+                      "color": "red",
+                      "value": 30
+                    }
+                  ]
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 5,
+        "w": 8,
+        "x": 16,
+        "y": 27
+      },
+      "id": 49,
+      "options": {
+        "footer": {
+          "fields": "",
+          "reducer": [
+            "sum"
+          ],
+          "show": false
+        },
+        "showHeader": true
+      },
+      "pluginVersion": "9.3.6",
+      "targets": [
+        {
+          "application": {
+            "filter": ""
+          },
+          "countTriggersBy": "",
+          "datasource": {
+            "type": "alexanderzobnin-zabbix-datasource",
+            "uid": "${DS_ZABBIX}"
+          },
+          "functions": [
+            {
+              "$$hashKey": "object:165",
+              "def": {
+                "category": "Alias",
+                "defaultParams": [
+                  "/(.*)/",
+                  "$1"
+                ],
+                "name": "replaceAlias",
+                "params": [
+                  {
+                    "name": "regexp",
+                    "type": "string"
+                  },
+                  {
+                    "name": "newAlias",
+                    "type": "string"
+                  }
+                ]
+              },
+              "params": [
+                "/.* ONT (.*): Temperature/",
+                "$1"
+              ],
+              "text": "replaceAlias(/.* ONT (.*): Temperature/, $1)"
+            }
+          ],
+          "group": {
+            "filter": "Sintercom/$estado/$cidade/$bairro"
+          },
+          "host": {
+            "filter": "/.*OLT.*/"
+          },
+          "item": {
+            "filter": "/ONT .*${client}.*: Temperature/"
+          },
+          "itemTag": {
+            "filter": "Application: ONU"
+          },
+          "macro": {
+            "filter": ""
+          },
+          "options": {
+            "count": true,
+            "disableDataAlignment": false,
+            "minSeverity": 3,
+            "showDisabledItems": false,
+            "skipEmptyValues": false,
+            "useTrends": "default",
+            "useZabbixValueMapping": false
+          },
+          "proxy": {
+            "filter": ""
+          },
+          "queryType": "0",
+          "refId": "A",
+          "resultFormat": "time_series",
+          "schema": 12,
+          "table": {
+            "skipEmptyValues": false
+          },
+          "tags": {
+            "filter": ""
+          },
+          "textFilter": "",
+          "trigger": {
+            "filter": ""
+          },
+          "triggers": {
+            "acknowledged": 2
+          }
+        }
+      ],
+      "title": "Temperatura",
+      "transformations": [
+        {
+          "id": "reduce",
+          "options": {
+            "reducers": [
+              "lastNotNull"
+            ]
+          }
+        }
+      ],
+      "type": "table"
+    }
+  ],
+  "schemaVersion": 37,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "current": {},
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "${DS_ZABBIX}"
+        },
+        "definition": "Zabbix - group",
+        "description": "",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Estado",
+        "multi": false,
+        "name": "estado",
+        "options": [],
+        "query": {
+          "application": "",
+          "group": "/^Sintercom/",
+          "host": "",
+          "item": "",
+          "itemTag": "",
+          "queryType": "group"
+        },
+        "refresh": 1,
+        "regex": "/^Sintercom\\/(.*)\\/.*\\/.*/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "${DS_ZABBIX}"
+        },
+        "definition": "Zabbix - group",
+        "description": "",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Cidade",
+        "multi": false,
+        "name": "cidade",
+        "options": [],
+        "query": {
+          "application": "",
+          "group": "/^Sintercom\\/$estado/",
+          "host": "",
+          "item": "",
+          "itemTag": "",
+          "queryType": "group"
+        },
+        "refresh": 1,
+        "regex": "/^Sintercom\\/.*\\/(.*)\\/.*/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "${DS_ZABBIX}"
+        },
+        "definition": "Zabbix - group",
+        "description": "",
+        "hide": 0,
+        "includeAll": true,
+        "label": "Bairro",
+        "multi": true,
+        "name": "bairro",
+        "options": [],
+        "query": {
+          "application": "",
+          "group": "/^Sintercom\\/$estado\\/$cidade/",
+          "host": "",
+          "item": "",
+          "itemTag": "",
+          "queryType": "group"
+        },
+        "refresh": 1,
+        "regex": "/^Sintercom\\/.*\\/.*\\/(.*)/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "${DS_ZABBIX}"
+        },
+        "definition": "Zabbix - host",
+        "description": "",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Cliente",
+        "multi": false,
+        "name": "host",
+        "options": [],
+        "query": {
+          "application": "",
+          "group": "/^Sintercom\\/$estado\\/$cidade/$bairro/",
+          "host": "/^CLI-CORP.*/",
+          "item": "",
+          "itemTag": "",
+          "queryType": "host"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "${DS_ZABBIX}"
+        },
+        "definition": "Zabbix - host",
+        "description": "",
+        "hide": 2,
+        "includeAll": false,
+        "label": "",
+        "multi": false,
+        "name": "client",
+        "options": [],
+        "query": {
+          "application": "",
+          "group": "/^Sintercom\\/$estado\\/$cidade/$bairro/",
+          "host": "$host",
+          "item": "",
+          "itemTag": "",
+          "queryType": "host"
+        },
+        "refresh": 1,
+        "regex": "/^CLI-CORP-(.*)/",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "alexanderzobnin-zabbix-datasource",
+          "uid": "${DS_ZABBIX}"
+        },
+        "definition": "Zabbix - itemTag",
+        "description": "",
+        "hide": 2,
+        "includeAll": true,
+        "label": "",
+        "multi": false,
+        "name": "cli_descriptions",
+        "options": [],
+        "query": {
+          "application": "",
+          "group": "/^Sintercom.*/",
+          "host": "/.*/",
+          "item": "/.*: Operational status/",
+          "itemTag": "/description: .*$client.*/",
+          "queryType": "itemTag"
+        },
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      }
+    ]
+  },
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timepicker": {},
+  "timezone": "",
+  "title": "Corporativos",
+  "uid": "AlnN73y4k",
+  "version": 27,
+  "weekStart": ""
+}
