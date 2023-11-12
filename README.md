@@ -1,2 +1,2 @@
 # sintercom-monitoring-project
-Templates Zabbix criados para o Projeto de Monitoramento da Sintercom
+Repositório de Códigos do Projeto de Monitoramento da Sintercom
